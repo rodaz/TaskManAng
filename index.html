@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+	<script src="js/app.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body ng-controller="controller as list">
+	
+	<!-- TODOLIST-->
+
+	  <div ng-mouseenter="head=true" ng-mouseleave="head=false" class='panelka panel panel-primary'>
+	    <div class='panel-heading'>
+	      <span class='glyphicon glyphicon-list-alt' aria-hidden='true'></span>
+	      <span class='sPanel'>Name</span>
+	      <span ng-show="head" class='ng-hide glyphicon glyphicon-trash buttonDeleteList' ></span>
+	      <span ng-show="head" class='ng-hide glyphicon glyphicon-pencil buttonEditList' aria-hidden='true'></span>
+	    </div>
+	    </div>
+
+	  
+	    <div class='addTask panel panel-danger'>
+	      <div class='panel-heading'>
+	        <span class='glyphicon glyphicon-plus plusTask' aria-hidden='true'></span>  
+	      <div class='formo4ka'>
+		      <form ng-submit="list.add()" class='input-group'>
+			      
+		          <input ng-model="list.todo" type='text' class='form-control newTaskValue' placeholder='Start typing here to create a task...' />
+			        <span class='input-group-btn'>
+				        <input class='btn btn-success btnAddTask' type='submit' value="Add task">
+			        </span>
+			      
+			    </form>
+			  </div>
+			  </div>  
+		  </div>
+	  
+	  <div class='globalList'>
+			<ul class='list-group ulCont'>	
+				<li ng-mouseenter="list.ent(td)" ng-mouseleave="list.leav(td)" ng-repeat="td in list.all|orderBy:'prior'" class='list-group-item list-group-item-success ulli'>
+				  <ul class='list-group list-inline ul-list'>
+				    <li>		
+							<span ng-show="td.done" class='glyphicon glyphicon-check buttonDoneTask' aria-hidden='true'></span>
+							<span ng-hide="td.done" class='glyphicon glyphicon-unchecked buttonDoneTask' aria-hidden='true'></span>
+						</li>
+						<li><span ng-show="td.vis" class='taskValue'>{{td.text}}</span>
+							<form ng-focus="td.vis" ng-submit="list.save(td)" ng-hide="td.vis">
+			          <input ng-model="list.taskEdit" type='text' class='' placeholder='{{td.text}}' />
+				        <input class='btn-primary' type='submit' value="Edit task">
+			    		</form>
+						</span></li>
+						<li ng-click="list.taskDel(td)" ng-show="td.enter" class='ng-hide taskOptions'><span class='glyphicon glyphicon-trash buttonDeleteTask' aria-hidden='true'></span></li>
+						<li ng-click="list.taskEd(td)" ng-show="td.enter" class='ng-hide taskOptions'><span class='glyphicon glyphicon-pencil buttonEditTask' aria-hidden='true'></span></li>
+						<li ng-click="list.priorDown(td, $index)" ng-show="td.enter" class='ng-hide taskOptions'>{{$index}}<span class='buttonDownTask glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span>{{td.prior}}</li>
+		        <li ng-click="list.priorUp(td, $index)" ng-show="td.enter" class='ng-hide taskOptions1'><span class='buttonUpTask glyphicon glyphicon-triangle-top' aria-hidden='true'></span></li>
+					</ul>
+				</li>				
+			</ul>
+		</div>
+
+
+<!-- END -->
+
+</body>
+</html>
